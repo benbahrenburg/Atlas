@@ -1,6 +1,10 @@
 exports.ProviderName="Titanium";
 exports.ProviderVersion=1;
 
+function IsNumeric(input){
+    var RE = /^-{0,1}\d*\.{0,1}\d+$/;
+    return (RE.test(input));
+};
 function translateErrorCode(code) {
 	if (code === null) {
 		return 'Unknown';
@@ -77,13 +81,28 @@ exports.setupProviderByFile=function(filePathFromResourceDir){};
 //This is the standard interface for reverseGeo
 exports.reverseGeo=function(latitude,longitude,callback){
 	var results = {success:false};
+	if(callback===null){
+		throw "No callback method provided";
+	}	
+	if(!IsNumeric(latitude)){
+		results.success=false;
+		results.message= "latitude value of " + latitude + " is not a valid number";
+		callback(results);
+		return;
+	}
+	if(!IsNumeric(longitude)){
+		results.success=false;
+		results.message= "longitude value of " + longitude + " is not a valid number";
+		callback(results);
+		return;		
+	}		
 	Ti.Geolocation.reverseGeocoder(latitude,longitude,function(evt){
 		if(evt.success){
 			var places = evt.places;
 			if((places!==null)&&(places.length>0)){
 				results.success=true;
 				results.address=safeTrim(places[0].address);
-				results.getState=getRegionCode(safeTrim(places[0].address));
+				results.regionCode=getRegionCode(safeTrim(places[0].address));
 				results.countryCode=findCountryCode(places[0]);
 			}else{
 				results.success=false;
@@ -104,6 +123,16 @@ exports.reverseGeo=function(latitude,longitude,callback){
 //This is the standard interface for forward Geo
 exports.forwardGeo=function(address,callback){
 	var results = {success:false};
+	if(callback===null){
+		throw "No callback method provided";
+	}	
+	if(address===null){
+		results.success=false;
+		results.message= "No address provided";
+		callback(results);
+		return;
+	}
+		
 	Ti.Geolocation.forwardGeocoder(address,function(evt){
 		if(evt.success){
 			results.success=true;
