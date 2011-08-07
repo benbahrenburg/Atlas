@@ -51,7 +51,7 @@ var _geo = {
 		}
 		
 		//If we're on iOS
-		if (Titanium.Platform.name !== 'android') {
+		if (Ti.Platform.name !== 'android') {
 			var authorization = Titanium.Geolocation.locationServicesAuthorization;
 			if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
 				return false;
@@ -115,10 +115,16 @@ var _geo = {
 			if (!e.success || e.error){
 				results.success=false;
 				results.message=translateErrorCode(e.code);
-				if((callback!==null)&&(callback!==undefined)){
-					callback(results);	
-				}
+				callback(results);	
 				return;
+			}
+			
+			if((e.coords.longitude===undefined)||(e.coords.longitude===null)||
+			  (e.coords.latitude===undefined)||(e.coords.latitude===null)){
+				results.success=false;
+				results.message="Invalid coordinate information provided by device";
+				callback(results);	
+				return;				
 			}
 			
 			results.success=true;			
@@ -130,9 +136,7 @@ var _geo = {
 			results.speed = e.coords.speed;
 			results.timestamp = e.coords.timestamp;
 			results.altitudeAccuracy = e.coords.altitudeAccuracy;
-			if((callback!==null)&&(callback!==undefined)){
-				callback(results);	
-			}			
+			callback(results);	
 		
 		});		
 	},
