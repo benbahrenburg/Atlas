@@ -25,13 +25,21 @@ function translateErrorCode(code) {
 	}
 };
 
+function safeTrim(value){
+	if((value===null)||(value===undefined)){
+		return '';
+	}else{
+		return value.replace(/^\s\s*/, '').replace(/\s\s*$/, '');	
+	}	
+};
+
 function findCountryCode(place){
 	//Account for the differences between Android & iOS reverse geo return
 	if((place.country_code!==undefined)&&(place.country_code!==null)){
-		return place.country_code;
+		return safeTrim(place.country_code);
 	}else{
 		if((place.countryCode!==undefined)&&(place.countryCode!==null)){
-			return place.countryCode;
+			return safeTrim(place.countryCode);
 		}else{
 			return null;
 		}
@@ -44,7 +52,7 @@ function getUSCAStateCode(address){
 	arPlaces=address.split(',');
 	var iLength = arPlaces.length;
 	iLength=((iLength-offset)>-1)? (iLength-offset): 0;
-	var stateCode = myt.geo.Utils.safeTrim(arPlaces[iLength]);
+	var stateCode = safeTrim(arPlaces[iLength]);
 	if(stateCode.length>2){
 		stateCode=stateCode.substring(0,2);
 	}
@@ -55,7 +63,7 @@ function getRegionCode(countryCode,address){
 	var regionCode = null;
 	
 	if((countryCode=='US')||(countryCode=='CA')){
-		regionCode=getUSCAStateCode(address);
+		regionCode=getUSCAStateCode(safeTrim(address));
 	}
 		
 	return regionCode;
@@ -64,6 +72,8 @@ function getRegionCode(countryCode,address){
 //This is just here for compatibility
 exports.setupProvider=function(providerDetails){};
 exports.cleanupProvider=function(providerDetails){};
+exports.setupProviderByFile=function(filePathFromResourceDir){};
+
 //This is the standard interface for reverseGeo
 exports.reverseGeo=function(latitude,longitude,callback){
 	var results = {success:false};
@@ -72,8 +82,8 @@ exports.reverseGeo=function(latitude,longitude,callback){
 			var places = evt.places;
 			if((places!==null)&&(places.length>0)){
 				results.success=true;
-				results.address=places[0].address;
-				results.getState=getRegionCode(places[0].address);
+				results.address=safeTrim(places[0].address);
+				results.getState=getRegionCode(safeTrim(places[0].address));
 				results.countryCode=findCountryCode(places[0]);
 			}else{
 				results.success=false;
