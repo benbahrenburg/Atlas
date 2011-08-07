@@ -66,6 +66,16 @@ var _geo = {
 	//Wrapper around Ti functions to get Heading
 	getCurrentHeading : function(callback){
 		var results = {success:false};
+		if(!_geo.enabled()){
+			results.success=false;
+			results.message="Your device's geo location services are not enabled";
+			return results;
+		}
+		if(callback===null){
+			results.success=false;
+			results.message="No callback method provided";
+			return results;
+		}		
 		Ti.Geolocation.getCurrentHeading(function(e){
 			if (!e.success || e.error){
 				results.success=false;
@@ -91,6 +101,16 @@ var _geo = {
 	//Wrapper around Ti functions to get GPS coordinates
 	getCurrentCoordinates : function(callback){
 		var results = {success:false};
+		if(!_geo.enabled()){
+			results.success=false;
+			results.message="Your device's geo location services are not enabled";
+			return results;
+		}
+		if(callback===null){
+			results.success=false;
+			results.message="No callback method provided";
+			return results;
+		}		
 		Ti.Geolocation.getCurrentPosition(function(e){
 			if (!e.success || e.error){
 				results.success=false;
