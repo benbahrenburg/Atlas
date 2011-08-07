@@ -45,7 +45,6 @@ exports.setupProvider=function(providerDetails){
 };
 exports.cleanupProvider=function(providerDetails){};
 
-
 //		This is the standard interface for reverseGeo
 //		Learn more about the GeoNames Nearby Address Service at:
 //		http://www.geonames.org/maps/us-reverse-geocoder.html#findNearestAddress
