@@ -8,6 +8,13 @@ var _apiKey = null;
 //		Please check the licening terms to make sure it is compatible
 //		with your application
 //*************************************************************
+function safeTrim(value){
+	if((value===null)||(value===undefined)){
+		return '';
+	}else{
+		return value.replace(/^\s\s*/, '').replace(/\s\s*$/, '');	
+	}	
+};
 
 function IsNumeric(input){
     var RE = /^-{0,1}\d*\.{0,1}\d+$/;
@@ -37,34 +44,32 @@ exports.setupProvider=function(providerDetails){
 	setKey(providerDetails);
 };
 exports.cleanupProvider=function(providerDetails){};
+
+
 //		This is the standard interface for reverseGeo
-//		Learn more about the GeoNames Nearby Service at:
-//		http://www.geonames.org/export/web-services.html#findNearby
+//		Learn more about the GeoNames Nearby Address Service at:
+//		http://www.geonames.org/maps/us-reverse-geocoder.html#findNearestAddress
 //
 //		Sample return for the below service call
-//		http://api.geonames.org/findNearbyJSON?lat=47.3&lng=9&username=demo
+//		http://api.geonames.org/findNearestAddressJSON?lat=37.451&lng=-122.18&username=demo 
 // {
-   // "geonames":[
-      // {
-         // "countryName":"Switzerland",
-         // "adminCode1":"SG",
-         // "fclName":"mountain,hill,rock,... ",
-         // "countryCode":"CH",
-         // "lng":9.020524,
-         // "fcodeName":"mountain",
-         // "distance":"1.56869",
-         // "toponymName":"Kreuzegg",
-         // "fcl":"T",
-         // "name":"Kreuzegg",
-         // "fcode":"MT",
-         // "geonameId":2660109,
-         // "lat":47.297696,
-         // "adminName1":"Sankt Gallen",
-         // "population":0
-      // }
-   // ]
+   // "address":{
+      // "postalcode":"94025",
+      // "adminCode2":"081",
+      // "adminCode1":"CA",
+      // "street":"Roble Ave",
+      // "countryCode":"US",
+      // "lng":"-122.18032",
+      // "placename":"Menlo Park",
+      // "adminName2":"San Mateo",
+      // "distance":"0.04",
+      // "streetNumber":"651",
+      // "mtfcc":"S1400",
+      // "lat":"37.45127",
+      // "adminName1":"California"
+   // }
 // }
-exports.reverseGeo=function(latitude,longitude,callback){
+ exports.reverseGeo=function(latitude,longitude,callback){
 	var results = {success:false};
 
 	if(callback===null){
@@ -88,8 +93,32 @@ exports.reverseGeo=function(latitude,longitude,callback){
 		callback(results);
 		return;		
 	}
-	
-	//TODO: Add logic		
+
+	var query = "http://api.geonames.org/findNearestAddressJSON?lat="+ latitude +"&lng=" + longitude + "&username=" + _apiKey;
+	var done = false;
+	var xhr = Ti.Network.createHTTPClient();
+	xhr.onload = function(){
+		if (this.readyState == 4 && !done) {
+			// convert the response JSON text into a JavaScript object
+			var geoNameResults = JSON.parse(this.responseText);
+			done=true;
+		
+			results.success=true;				
+			results.address=safeTrim(safeTrim(geoNameResults.streetNumber) + ' ' + safeTrim(geoNameResults.street) + ' ' + safeTrim(geoNameResults.adminName2));
+			results.regionCode=safeTrim(geoNameResults.adminCode1);		
+			results.countryCode=geoNameResults.countryCode;
+			callback(results);
+		}	
+	};
+	xhr.onerror = function(exr){
+		results.success=false;
+		results.message= exr.error;
+		callback(results);
+	};			
+  	
+  	xhr.open('GET',query);
+  	xhr.send();
+				
 };
 
 //*****************************************************
