@@ -1,5 +1,10 @@
 exports.ProviderName="Google";
 exports.ProviderVersion=1;
+//*************************************************************
+//		Go to http://code.google.com/apis/maps/index.html
+//		and check the licening terms to make sure it is compatible
+//		with your application
+//*************************************************************
 
 function IsNumeric(input){
     var RE = /^-{0,1}\d*\.{0,1}\d+$/;
