@@ -14,7 +14,7 @@ To use Atlas in your Titanium Mobile project please follow the below steps:
 2. Some of the providers need API keys. Check the readme file in each provider directory for instructions on what is needed for each provider.
 3. Copy the providers into your project and use them just like any other CommonJS library
 
-## Libraries
+## CommonJS Libraries
 
 * Atlas Core (Resources/lib/atlas.js)
 
@@ -24,7 +24,7 @@ To use Atlas in your Titanium Mobile project please follow the below steps:
 
 * Google Location Provider (Resources/lib/Google/altas.google.js)
 
-* **Please check each provider's directory for information on the provider and where to obtain any API Keys** *
+*<b>Please check each provider's directory for information on the provider and where to obtain any API Keys</b>*
 
 ## Issues
 
