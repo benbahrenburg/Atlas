@@ -4,15 +4,27 @@ Atlas is a set of CommonJS JavaScript libraries that allow you to extend the exi
 
 ## Features
 
-
+Details coming soon.
 
 ## Usage
 
-Examples coming soon.
+To use Atlas in your Titanium Mobile project please follow the below steps:
+
+1. Check out the Examples folder for how to use each provider. Similar to the KitchenSink example there is a running sample on how to use each provider.
+2. Some of the providers need API keys. Check the readme file in each provider directory for instructions on what is needed for each provider.
+3. Copy the providers into your project and use them just like any other CommonJS library
 
 ## Libraries
 
+* Atlas Core (Resources/lib/atlas.js)
 
+* Titanium Location Provider (Resources/lib/Titanium/altas.ti.js)
+
+* GeoNames Location Provider (Resources/lib/GeoNames/altas.geonames.js)
+
+* Google Location Provider (Resources/lib/Google/altas.google.js)
+
+**Please check each provider's directory for information on the provider and where to obtain any API Keys**
 
 ## Issues
 
