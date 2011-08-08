@@ -219,9 +219,15 @@ exports.reverseGeo=function(latitude,longitude,callback){
 			var places = evt.places;
 			if((places!==null)&&(places.length>0)){
 				results.success=true;
-				results.address=safeTrim(places[0].address);
-				results.regionCode=getRegionCode(safeTrim(places[0].address));
-				results.countryCode=findCountryCode(places[0]);
+				results.location = {
+					address:safeTrim(places[0].address),
+					city:null,
+					regionCode:getRegionCode(safeTrim(places[0].address)),
+					countryCode:findCountryCode(places[0]),
+					latitude:latitude,
+					longitude:longitude
+				};
+
 			}else{
 				results.success=false;
 				results.message="No address found";				

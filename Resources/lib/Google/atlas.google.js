@@ -159,52 +159,6 @@ exports.providerSetupFromByFile=function(filePathFromResourceDir){};
 exports.providerCleanup=function(providerDetails){};
 
 
-//This is the standard interface for reverseGeo
-   // "results" : [
-      // {
-         // "address_components" : [
-            // {
-               // "long_name" : "655",
-               // "short_name" : "655",
-               // "types" : [ "street_number" ]
-            // },
-            // {
-               // "long_name" : "Roble Ave",
-               // "short_name" : "Roble Ave",
-               // "types" : [ "route" ]
-            // },
-            // {
-               // "long_name" : "Menlo Park",
-               // "short_name" : "Menlo Park",
-               // "types" : [ "locality", "political" ]
-            // },
-            // {
-               // "long_name" : "San Mateo",
-               // "short_name" : "San Mateo",
-               // "types" : [ "administrative_area_level_3", "political" ]
-            // },
-            // {
-               // "long_name" : "San Mateo",
-               // "short_name" : "San Mateo",
-               // "types" : [ "administrative_area_level_2", "political" ]
-            // },
-            // {
-               // "long_name" : "California",
-               // "short_name" : "CA",
-               // "types" : [ "administrative_area_level_1", "political" ]
-            // },
-            // {
-               // "long_name" : "United States",
-               // "short_name" : "US",
-               // "types" : [ "country", "political" ]
-            // },
-            // {
-               // "long_name" : "94025",
-               // "short_name" : "94025",
-               // "types" : [ "postal_code" ]
-            // }
-         // ],
-         // "formatted_address" : "655 Roble Ave, Menlo Park, CA 94025, USA",
 exports.reverseGeo=function(latitude,longitude,callback){
 	var results = {success:false};
 	if(callback===null){
@@ -244,9 +198,15 @@ exports.reverseGeo=function(latitude,longitude,callback){
 					return;					
 				}
 				results.success=true;
-				results.address=googleResults.results[0].formatted_address;
-				results.regionCode=findCodeInResults(googleResults.results[0],'administrative_area_level_1');
-				results.countryCode=findCodeInResults(googleResults.results[0],'COUNTRY');
+				results.location = {
+					address:googleResults.results[0].formatted_address,
+					city:findCodeInResults(googleResults.results[0],'LOCALITY'),
+					regionCode:findCodeInResults(googleResults.results[0],'administrative_area_level_1'),
+					countryCode:findCodeInResults(googleResults.results[0],'COUNTRY'),
+					latitude:latitude,
+					longitude:longitude					
+				};
+
 				callback(results);
 			}	
 		};
