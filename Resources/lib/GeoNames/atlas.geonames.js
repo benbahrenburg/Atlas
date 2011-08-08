@@ -88,7 +88,9 @@ function IsNumeric(input){
     var RE = /^-{0,1}\d*\.{0,1}\d+$/;
     return (RE.test(input));
 };
-
+function searchTermTokenize(searchTerm){
+	return searchTerm.replace(' ','+');
+};
 function setKey(providerDetails){
 	if((providerDetails.apiKey!==undefined)&&(providerDetails.apiKey!==undefined)){
 		_apiKey=providerDetails.apiKey;
@@ -230,10 +232,15 @@ exports.providerCleanup=function(providerDetails){};
 			var geoNameResults = JSON.parse(this.responseText);
 			done=true;
 		
-			results.success=true;				
-			results.address=safeTrim(safeTrim(geoNameResults.streetNumber) + ' ' + safeTrim(geoNameResults.street) + ' ' + safeTrim(geoNameResults.adminName2));
-			results.regionCode=safeTrim(geoNameResults.adminCode1);		
-			results.countryCode=geoNameResults.countryCode;
+			results.success=true;
+			results.location = {
+				address:safeTrim(safeTrim(geoNameResults.streetNumber) + ' ' + safeTrim(geoNameResults.street) + ' ' + safeTrim(geoNameResults.adminName2)),
+				city:safeTrim(geoNameResults.adminName2),
+				regionCode:safeTrim(geoNameResults.adminCode1),		
+				countryCode:geoNameResults.countryCode,
+				latitude:latitude,
+				longitude:longitude			
+			};			
 			callback(results);
 		}	
 	};
@@ -301,8 +308,36 @@ exports.forwardGeo=function(address,callback){
 		callback(results);
 		return;
 	}	
-	
-	//TODO: Add logic
+
+	var query = "http://api.geonames.org/search?q="+ searchTermTokenize(address) +"&type=json&username=" + _apiKey;
+	var done = false;
+	var xhr = Ti.Network.createHTTPClient();
+	xhr.onload = function(){
+		if (this.readyState == 4 && !done) {
+			// convert the response JSON text into a JavaScript object
+			var geoNameResults = JSON.parse(this.responseText);
+			done=true;
+		
+			results.success=true;
+			results.location = {
+				addresss:address,
+				city:null,
+				regionCode:null,		
+				countryCode:geoNameResults.countryCode,
+				latitude:geoNameResults.lat,
+				longitude:geoNameResults.lng			
+			};			
+			callback(results);
+		}	
+	};
+	xhr.onerror = function(exr){
+		results.success=false;
+		results.message= exr.error;
+		callback(results);
+	};			
+  	
+  	xhr.open('GET',query);
+  	xhr.send();
 };
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //	PUBLIC EXPORTS END HERE
