@@ -1,3 +1,9 @@
+/*
+ * Project Atlas
+ * Copyright (c) 2009-2011 by Benjamin Bahrenburg All Rights Reserved.
+ * Licensed under the terms of the Apache Public License
+ * Please see the LICENSE included with this distribution for details.
+ */
 exports.ProviderName="Titanium";
 exports.ProviderVersion=1;
 
