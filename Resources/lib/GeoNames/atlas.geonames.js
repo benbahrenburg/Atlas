@@ -5,6 +5,11 @@
  * Licensed under the terms of the Apache Public License
  * Please see the LICENSE included with this distribution for details.
  */
+//*************************************************************
+//		Go to http://geonames.org
+//		and check the licening terms to make sure it is compatible
+//		with your application
+//*************************************************************
 //-----------------------------------------------------------
 //	Provider Name : GeoNames
 //	Provider Version: 1
@@ -58,6 +63,7 @@
 // 			longitude : longitude value,
 // 		}
 //
+
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //	PRIVATE HELPER FUNCTIONS START HERE
 //	Scroll down to see what exports are available.

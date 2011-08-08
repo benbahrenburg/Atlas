@@ -1,17 +1,71 @@
+/*jslint maxerr:1000 */
 /*
  * Project Atlas
  * Copyright (c) 2009-2011 by Benjamin Bahrenburg All Rights Reserved.
  * Licensed under the terms of the Apache Public License
  * Please see the LICENSE included with this distribution for details.
  */
-exports.ProviderName="Google";
-exports.ProviderVersion=1;
 //*************************************************************
 //		Go to http://code.google.com/apis/maps/index.html
 //		and check the licening terms to make sure it is compatible
 //		with your application
 //*************************************************************
+//-----------------------------------------------------------
+//	Provider Name : Google
+//	Provider Version: 1
+//
+//
+//	Public exports:
+//	exports.providerName  -> Gives the name of the provider
+//
+//	exports.providerVersion -> Gives the version of the provider
+//
+//	exports.capabilities	-> Provies a list of the providers capabilities
+//
+//	exports.providerSetup -> Provides the provider setup details
+//							such as api and other keys
+//
+//	exports.providerCleanup -> Provides the provider with any clean-up instructions
+//
+//	exports.providerSetupFromByFile -> Loads setup information
+//									from a file. The file path
+//									is from the Resources directory
+//
+//	exports.reverseGeo -> Performs a reverse geolocation lookup
+//						  using the coordinates provided.
+//
+//		success :true/false this provides an indicator if there is an error,
+//		message: if there is a message this will tell us what it is,
+//		location:
+// 		{
+// 			address : if available the Address of the coordinates provided
+// 			city : if available the City of the coordinates provided
+// 			regionCode : if available the Region (state, provance) code will be provided 
+// 			countryCode : Country code of the coordinates provided,
+// 			latitude : latitude value used in the lookup, 
+// 			longitude : longitude value used in the lookup,
+// 		}
+//
+//	exports.forwardGeo -> Performs the search and provides the results
+//							to a callback method in the following format:
+//
+//		success :true/false this provides an indicator if there is an error,
+//		message: if there is a message this will tell us what it is,
+//		location:
+// 		{
+// 			address : Address or location used in search,
+// 			city : if available the City, 
+// 			regionCode : if available the Region (state, provance) code will be provided,
+// 			countryCode : if available Country code,
+// 			latitude : latitude value, 
+// 			longitude : longitude value,
+// 		}
+//
 
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	PRIVATE HELPER FUNCTIONS START HERE
+//	Scroll down to see what exports are available.
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 function IsNumeric(input){
     var RE = /^-{0,1}\d*\.{0,1}\d+$/;
     return (RE.test(input));
@@ -47,10 +101,63 @@ function findCodeInResults(resultSet,matchCode){
         }
         return returnCode;       
 };
-//This is just here for compatibility
-exports.setupProvider=function(providerDetails){};
-exports.cleanupProvider=function(providerDetails){};
-exports.setupProviderByFile=function(filePathFromResourceDir){};
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	PRIVATE HELPER FUNCTIONS END HERE
+//	Scroll down to see what exports are available.
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	PUBLIC EXPORTS START HERE
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+//-----------------------------------------------------------
+//	Provider Name
+//-----------------------------------------------------------
+exports.ProviderName="Google";
+//-----------------------------------------------------------
+//	Provider Version
+//-----------------------------------------------------------
+exports.ProviderVersion=1;
+//-----------------------------------------------------------
+//	Provider Capabilities
+//	This provides a list of the capabilities
+//	of the content provider, such as the ability
+//	to support radius filters or forward geo lookups
+//-----------------------------------------------------------
+exports.capabilities ={
+	hasReverseGeo:true,
+	reverseGeoAccuracy:'high',
+	hasForwardGeo:true,
+	forwardGeoAccuracy:'high'
+};
+//-----------------------------------------------------------
+//	Many of the search APIs require API Key Information
+//	This method can be used to set this information programmatically
+//
+//	Please note this will be different for each search provider
+//
+//------------------------------------------------
+exports.providerSetup=function(providerDetails){};
+//-----------------------------------------------------------
+//	Many of the geo APIs require API Key Information
+//	This method can be used to set this information by loading
+//	the api information from a file.
+//	
+//	It is important to note the path provide should be from
+//	the RESOURCES directory ie it isn't a relative path.
+//	
+//	Please note this will be different for each search provider
+//
+//------------------------------------------------
+exports.providerSetupFromByFile=function(filePathFromResourceDir){};
+//-----------------------------------------------------------
+//	Provider Clean-up
+//	This method contains any of the instructions needed
+//	to shutdown the provider when the user has finished
+//-----------------------------------------------------------
+exports.providerCleanup=function(providerDetails){};
+
 
 //This is the standard interface for reverseGeo
    // "results" : [
@@ -169,3 +276,7 @@ exports.forwardGeo=function(address,callback){
 	
 	//TODO: Add logic
 };
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	PUBLIC EXPORTS END HERE
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

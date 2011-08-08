@@ -167,6 +167,8 @@ exports.capabilities ={
 //	Many of the search APIs require API Key Information
 //	This method can be used to set this information programmatically
 //
+//	Please note this will be different for each search provider
+//
 //	No provider key or other setup information is needed
 //	for the native Titanium provider.  Any values passed
 //	into this method will be ignored.	
@@ -266,3 +268,6 @@ exports.forwardGeo=function(address,callback){
 		}
 	});	
 };
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//	PUBLIC EXPORTS END HERE
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
