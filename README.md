@@ -24,7 +24,7 @@ To use Atlas in your Titanium Mobile project please follow the below steps:
 
 * Google Location Provider (Resources/lib/Google/altas.google.js)
 
-**Please check each provider's directory for information on the provider and where to obtain any API Keys**
+* **Please check each provider's directory for information on the provider and where to obtain any API Keys** *
 
 ## Issues
 
