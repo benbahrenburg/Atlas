@@ -40,7 +40,7 @@ exports.setupProviderByFile=function(filePathFromResourceDir){
 	var fileResults  = null;
 	var file = Ti.Filesystem.getFile(Titanium.Filesystem.resourcesDirectory, filePathFromResourceDir);
 	if(file.exists()){
-		var contents = file.read();
+		var contents = JSON.parse(''+file.read());
 		setKey(contents);
 	}else{
 		throw "File " + filePathFromResourceDir + " do not exist. Make sure you start the path from the Resource directory.";
