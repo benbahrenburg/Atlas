@@ -54,7 +54,7 @@ How you have access to the following objects Altas.Math, Altas.Shapes, and Altas
 
 ## CommonJS Libraries
 
-All commonjs files are in the Resources/lib project folder.
+All commonjs files are in the Resources/Altas project folder.
 
 * Atlas Core (Resources/Altas/atlas.js)
 
