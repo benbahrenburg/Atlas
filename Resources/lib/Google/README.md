@@ -8,6 +8,8 @@ Learn more about them at [http://code.google.com/apis/maps/index.html](http://co
 
 *<b>Before using please check that the Google terms of use are compatible with your application/purpose</b>*
 
+*Please note this provider does not require an api key. Any api key function calls will be ignored. Per Google's developer page they use your IP address to determine your rate limit and usage*
+
 ## Capability Rating
 
 * Able to Reverse Geo Decode with a high level of accuracy
@@ -42,9 +44,13 @@ The myProvider object will be used as a reference in the below descriptions.
 
 <b>myProvider.providerSetup</b> -> Provides the provider setup details such as api and other keys
 
+*The providerSetup method is not used by this provider, any call to this method will be ignored*
+
 <b>myProvider.providerCleanup</b> -> Provides the provider with any clean-up instructions
 
 <b>myProvider.providerSetupFromByFile</b> -> Loads setup information from a file. The file path is from the Resources directory
+
+*The providerSetupFromByFile method is not used by this provider, any call to this method will be ignored*
 
 <b>myProvider.reverseGeo</b> -> Performs a reverse geolocation lookup using the coordinates provided. 
 	
