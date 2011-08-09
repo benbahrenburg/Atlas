@@ -4,7 +4,7 @@ Provider Name : Titanium
 Provider Version: 1
 
 This provider wraps methods from the native Titanium mobile SDK
-Learn more about them at (developer.appcelerator.com)[http://developer.appcelerator.com]
+Learn more about them at [developer.appcelerator.com](http://developer.appcelerator.com)
 
 ## Capability Rating
 
@@ -76,3 +76,15 @@ The myProvider object will be used as a reference in the below descriptions.
  			latitude : latitude value, 
  			longitude : longitude value,
  		}
+ 		
+## Issues
+
+Please report all issues on the GitHub [issue tracker for Atlas](https://github.com/benbahrenburg/Atlas/issues).
+
+## Authors
+
+  * Ben Bahrenburg [@benCoding](http://twitter.com/benCoding)
+
+## License ##
+
+Project Atlas is licensed under the terms of the Apache Public License. Please see the LICENSE included with this distribution for details.

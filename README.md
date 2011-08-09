@@ -4,7 +4,7 @@ Atlas is a set of CommonJS JavaScript libraries that allow you to extend the exi
 
 ## Features
 
-The Altas project is divided into two main sections.  The core and the providers (Google, GeoNames,Titanium)  
+The Altas project is divided into two main sections.  The [core](https://github.com/benbahrenburg/Atlas/blob/master/Resources/lib/atlas.js) and the [providers (Google, GeoNames,Titanium)](https://github.com/benbahrenburg/Atlas/tree/master/Resources/lib)  
 
 Altas core provides help Geolocation functions for working with your device and coordinates.
 
