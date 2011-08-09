@@ -4,7 +4,13 @@ Atlas is a set of CommonJS JavaScript libraries that allow you to extend the exi
 
 ## Features
 
-Details coming soon.
+The Altas project is divided into two main sections.  The core and the providers (Google, GeoNames,Titanium)  
+
+Altas core provides help Geolocation functions for working with your device and coordinates.
+
+The Altas providers, location in the Resources/lib folder provides Reverse Geo and Forward Geo functionality using such provides as GeoNames, Google, and Titanium.  All provides are implemented using a common interface so you can quickly switch between them in your code.
+
+You can use the Altas core provider methods to manage what providers are loaded and change them together in case one service is unavailable or has reached it's limit.
 
 ## Usage
 
@@ -14,7 +20,41 @@ To use Atlas in your Titanium Mobile project please follow the below steps:
 2. Some of the providers need API keys. Check the readme file in each provider directory for instructions on what is needed for each provider.
 3. Copy the providers into your project and use them just like any other CommonJS library
 
+## Altas Core
+First load the library
+var Altas = require('lib/atlas');
+
+How you have access to the following objects Altas.Math, Altas.Shapes, and Altas.Geo
+	
+<b>Altas.Math</b> gives you some common Geo calculations including:	
+
+* addDistance2Coords - calculates a new set of coordinates based on your bearing and the distance you want to travel
+
+* distanceBetweenCoords - calculates the distance between two coordinates
+
+* bearing - calculates your bearing given a set of coordinates
+
+* midPoint - calculates the midpoint between two sets of coordinates
+
+* meters2Miles - converts meters to miles
+
+* miles2Meters - converts miles to meters
+
+<b>Altas.Shapes</b> gives you access to geolocation shapes including:
+
+* createSqArea - generates the square area between to sets of coordinates.
+ 
+<b>Altas.Geo</b> gives you some common Geolocation functions including:
+
+* enabled - returns a boolean if geolocation services are accessible on your device
+
+* getCurrentHeading - provides your heading information to a callback function. This wraps the native Titanium functions
+
+* getCurrentCoordinates - provides your coordinates information to a callback function. This wraps the native Titanium functions
+
 ## CommonJS Libraries
+
+All commonjs files are in the Resources/lib project folder.
 
 * Atlas Core (Resources/lib/atlas.js)
 
