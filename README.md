@@ -4,7 +4,7 @@ Atlas is a set of CommonJS JavaScript libraries that allow you to extend the exi
 
 ## Features
 
-The Altas project is divided into two main sections.  The [core](https://github.com/benbahrenburg/Atlas/blob/master/Resources/lib/atlas.js) and the [providers (Google, GeoNames,Titanium)](https://github.com/benbahrenburg/Atlas/tree/master/Resources/lib)  
+The Altas project is divided into two main sections.  The [core](https://github.com/benbahrenburg/Atlas/blob/master/Resources/Atlas/atlas.js) and the [providers (Google, GeoNames,Titanium)](https://github.com/benbahrenburg/Atlas/tree/master/Resources/Altas)  
 
 Altas core provides help Geolocation functions for working with your device and coordinates.
 
@@ -22,7 +22,7 @@ To use Atlas in your Titanium Mobile project please follow the below steps:
 
 ## Altas Core
 First load the library
-var Altas = require('lib/atlas');
+var Altas = require('Altas/atlas');
 
 How you have access to the following objects Altas.Math, Altas.Shapes, and Altas.Geo
 	
@@ -56,13 +56,13 @@ How you have access to the following objects Altas.Math, Altas.Shapes, and Altas
 
 All commonjs files are in the Resources/lib project folder.
 
-* Atlas Core (Resources/lib/atlas.js)
+* Atlas Core (Resources/Altas/atlas.js)
 
-* Titanium Location Provider (Resources/lib/Titanium/altas.ti.js)
+* Titanium Location Provider (Resources/Altas/Titanium/altas.ti.js)
 
-* GeoNames Location Provider (Resources/lib/GeoNames/altas.geonames.js)
+* GeoNames Location Provider (Resources/Altas/GeoNames/altas.geonames.js)
 
-* Google Location Provider (Resources/lib/Google/altas.google.js)
+* Google Location Provider (Resources/Altas/Google/altas.google.js)
 
 *<b>Please check each provider's directory for information on the provider and where to obtain any API Keys</b>*
 

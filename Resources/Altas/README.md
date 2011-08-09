@@ -1,12 +1,12 @@
 # Atlas - Titanium Geolocation Utilities and Providers
 
-* Atlas Core (Resources/lib/atlas.js)
+* Atlas Core (Resources/Altas/atlas.js)
 
-* Titanium Location Provider (Resources/lib/Titanium/altas.ti.js)
+* Titanium Location Provider (Resources/Altas/Titanium/altas.ti.js)
 
-* GeoNames Location Provider (Resources/lib/GeoNames/altas.geonames.js)
+* GeoNames Location Provider (Resources/Altas/GeoNames/altas.geonames.js)
 
-* Google Location Provider (Resources/lib/Google/altas.google.js)
+* Google Location Provider (Resources/Altas/Google/altas.google.js)
 
 *<b>Please check each provider's directory for information on the provider and where to obtain any API Keys</b>*
 

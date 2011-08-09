@@ -2,7 +2,7 @@
 
 Examples on how to use the providers can be found in the Examples folder.
 
-The provider code and documentation can be found in the lib folder.
+Altas code and providers can be found in the Altas directory along with readme documentation.
 
 ## Issues
 
