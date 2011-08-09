@@ -27,11 +27,23 @@
 //	exports.providerSetup -> Provides the provider setup details
 //							such as api and other keys
 //
+//	The below is the format you must pass your api key in as:
+// 		{ 
+// 			"username": "YOUR_USERNAME", 
+// 		}
+//
 //	exports.providerCleanup -> Provides the provider with any clean-up instructions
 //
 //	exports.providerSetupFromByFile -> Loads setup information
 //									from a file. The file path
 //									is from the Resources directory
+//
+//	For the GeoNames provider you need to have an the following
+//	in your file.
+//
+// 		{ 
+// 			"username": "YOUR_USERNAME", 
+// 		}
 //
 //	exports.reverseGeo -> Performs a reverse geolocation lookup
 //						  using the coordinates provided.
