@@ -41,11 +41,15 @@ The myProvider object will be used as a reference in the below descriptions.
 <b>myProvider.capabilities</b>	-> Provies a list of the providers capabilities
 
 <b>myProvider.providerSetup</b> -> Provides the provider setup details such as api and other keys
+
 *Not used by this provider, any call to this method will be ignored*
+
 <b>myProvider.providerCleanup</b> -> Provides the provider with any clean-up instructions
 
 <b>myProvider.providerSetupFromByFile</b> -> Loads setup information from a file. The file path is from the Resources directory
+
 *Not used by this provider, any call to this method will be ignored*
+
 <b>myProvider.reverseGeo</b> -> Performs a reverse geolocation lookup using the coordinates provided. 
 	
 	The callback function is provide output in the following format:
