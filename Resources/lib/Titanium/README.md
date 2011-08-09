@@ -16,9 +16,9 @@ Learn more about them at [developer.appcelerator.com](http://developer.appcelera
 The <b>capabilities</b> property will return the following:
 	
 * hasReverseGeo:true
-* reverseGeoAccuracy:'high'
+* reverseGeoAccuracy: high
 * hasForwardGeo:true
-* forwardGeoAccuracy:'high'
+* forwardGeoAccuracy: high
 
 ## Examples
 
