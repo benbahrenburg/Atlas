@@ -85,7 +85,12 @@ var _geo = {
 		Ti.Geolocation.getCurrentHeading(function(e){
 			if (!e.success || e.error){
 				results.success=false;
-				results.message=translateErrorCode(e.code);
+				if(Ti.Platform.name!=='android'){
+					results.message=translateErrorCode(e.code);
+				}else{
+					results.message=translateErrorCode(e.error.code);	
+				}
+								
 				if((callback!==null)&&(callback!==undefined)){
 					callback(results);	
 				}
@@ -120,6 +125,7 @@ var _geo = {
 		Ti.Geolocation.getCurrentPosition(function(e){
 			if (!e.success || e.error){
 				results.success=false;
+				Ti.API.info('atlas error ' + e.error);
 				results.message=translateErrorCode(e.code);
 				callback(results);	
 				return;
@@ -290,7 +296,54 @@ var _shapes = {
 	}
 };
 
+var test =[];
+
+var _providers = [];
+var _activeProvider =null;
+	
+var _find = {
+
+	buildProviders : function(providerList){	
+		
+		if(providerList===undefined || providerList===null || providerList.length===0){
+			throw "you need at least one provider";
+		}
+		_providers=[]; //Reset
+		var iLength = providerList.length;
+		for (var iLoop=0;iLoop < iLength;iLoop++){
+			
+			if(providerList[iLoop].providerPath!==undefined && 
+			   providerList[iLoop].providerPath!==null && 
+			   providerList[iLoop].providerPath.length > 0){
+				_providers.push(require(providerList[iLoop].providerPath));
+			}			
+		}
+		
+		_activeProvider=_providers[0];
+	},
+	setProviderById : function(providerId){
+		_activeProvider=_providers[providerId];
+	},
+	doReverseGeo : function(latitude,longitude,callback){
+		if(_activeProvider===null){
+			throw "something went wrong try to build providers again";
+		}
+		
+		_activeProvider.reverseGeo(latitude,longitude,callback);
+	},
+	doForwardGeo : function(address,callback){
+		if(_activeProvider===null){
+			throw "something went wrong try to build providers again";
+		}
+		
+		_activeProvider.forwardGeo(address,callback);
+	}
+	
+};
+
+
 //Set the functions so they are available via exports
 exports.Math = _math;
 exports.Shapes = _shapes;
 exports.Geo = _geo;
+exports.Find=_find;
