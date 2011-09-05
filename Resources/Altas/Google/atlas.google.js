@@ -79,6 +79,9 @@ function safeTrim(value){
 };
 function findCodeInResults(resultSet,matchCode){
 	var iLoop=0;
+		if((resultSet.results===undefined)||(resultSet.results===null)){
+			return '';
+		}
         var maxSize=resultSet.results.length;
         var iAddressLoop=0;
         var returnCode='';
@@ -160,6 +163,7 @@ exports.providerCleanup=function(providerDetails){};
 
 
 exports.reverseGeo=function(latitude,longitude,callback){
+
 	var results = {success:false};
 	if(callback===null){
 		throw "No callback method provided";
@@ -191,13 +195,15 @@ exports.reverseGeo=function(latitude,longitude,callback){
 					callback(results);	
 					return;				
 				}
+
 				if(googleResults.results.length===0){
 					results.success=false;
 					results.message= 'No address information provided';
 					callback(results);
 					return;					
 				}
-				results.success=true;
+
+				results.success=true;				
 				results.location = {
 					address:googleResults.results[0].formatted_address,
 					city:findCodeInResults(googleResults.results[0],'LOCALITY'),
@@ -236,7 +242,3 @@ exports.forwardGeo=function(address,callback){
 	
 	//TODO: Add logic
 };
-
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//	PUBLIC EXPORTS END HERE
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
